@@ -2,29 +2,16 @@ import random
 
 # these are variables
 file = open('words.txt', 'r')
-words = file.read().lower().split()
+words = file.readlines()
 guess_list = []
 
 selected_word = ''
-selected_word_list = selected_word.split()
 
 # this is a function
 def select_word():
     selected_word = random.choice(words)
-    if selected_word.count > 6:
+    if len(selected_word) > 6:
         select_word()
-
-def play():
-    incorrect_guesses = []
-    guess_input()
-    display_word(guess_list)
-    
-    if "_" in selected_word:
-        print(f"Mystery Word: {' '.join(display_word(selected_word_list, guess_list))}")
-        print(f"You've already guessed: {' '.join(incorrect_guesses)}")
-        print(f"You have {guesses_available} guesses left")
-    elif guesses < 8 and "_" not in selected_word_list:
-        print(f"Yay! you guessed the Mystery Word {selected_word}")
 
 def guess_input():
     guess = input("Choose a letter: ").lower()
@@ -32,11 +19,23 @@ def guess_input():
         print("You may only guess 1 letter at a time")
     else:
         guess_list.append(guess)
-    
 
-def display_word(guess_list):
+def display_word():
+    for char in selected_word:
+        if char in guess_list:
+            print(char)
+        else:
+            print("_")
+
     print([letter if letter in guess_list else '_' for letter in selected_word])
 
-select_word()
+def guess():
+    # appending to guess list
+    guess_input()
+    display_word()
 
-play()
+select_word()
+print(len(selected_word))
+
+guess()
+guess()
