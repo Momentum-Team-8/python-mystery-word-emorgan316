@@ -2,7 +2,7 @@ import random
 
 # these are variables
 file = open('words.txt', 'r')
-words = file.readlines()
+words = file.read().splitlines()
 guess_list = []
 
 selected_word = ''
@@ -10,8 +10,13 @@ selected_word = ''
 # this is a function
 def select_word():
     selected_word = random.choice(words)
+    # print(selected_word)
+    # print(len(selected_word)) 
     if len(selected_word) > 6:
-        select_word()
+        return select_word()
+    print(selected_word)
+    return selected_word
+    
 
 def guess_input():
     guess = input("Choose a letter: ").lower()
@@ -20,22 +25,21 @@ def guess_input():
     else:
         guess_list.append(guess)
 
-def display_word():
+def display_word(selected_word):
     for char in selected_word:
         if char in guess_list:
-            print(char)
+            print(char, end = '')
         else:
-            print("_")
+            print("_", end = '')
+    print("")
 
-    print([letter if letter in guess_list else '_' for letter in selected_word])
-
-def guess():
+def guess(selected_word):
     # appending to guess list
     guess_input()
-    display_word()
+    display_word(selected_word)
 
-select_word()
-print(len(selected_word))
+selected_word = select_word()
+# print(len(selected_word))
 
-guess()
-guess()
+guess(selected_word)
+guess(selected_word)
