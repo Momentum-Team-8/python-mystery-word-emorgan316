@@ -4,6 +4,7 @@ import random
 file = open('words.txt', 'r')
 words = file.read().splitlines()
 guess_list = []
+guess_count = 0
 
 selected_word = ''
 
@@ -38,8 +39,20 @@ def guess(selected_word):
     guess_input()
     display_word(selected_word)
 
+def game_over(selected_word):
+    for char in selected_word:
+        if char not in guess_list:
+            return False
+    return True
+
 selected_word = select_word()
 # print(len(selected_word))
 
-guess(selected_word)
-guess(selected_word)
+while not game_over(selected_word):
+    guess(selected_word)
+    guess_count = guess_count + 1
+    if guess_count == 6:
+        break
+
+
+
