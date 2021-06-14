@@ -1,6 +1,5 @@
 import random
 
-# these are variables
 file = open('words.txt', 'r')
 words = file.read().splitlines()
 guess_list = []
@@ -8,7 +7,6 @@ guess_count = 0
 
 selected_word = ''
 
-# this is a function
 def select_word():
     selected_word = random.choice(words)
     # print(selected_word)
